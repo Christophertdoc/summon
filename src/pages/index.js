@@ -3,6 +3,7 @@ import { ApolloProvider } from "@apollo/react-hooks"
 import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost"
 import Data from "../components/Data"
 
+
 function IndexPage() {
 
   const httpLink = new HttpLink({
@@ -19,6 +20,11 @@ function IndexPage() {
         <Data />
     </ApolloProvider>
   )
+
 }
+
+
+
+
 
 export default IndexPage
