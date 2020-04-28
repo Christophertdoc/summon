@@ -2,10 +2,6 @@ import React from "react"
 import { ApolloProvider } from "@apollo/react-hooks"
 import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost"
 import Data from "../components/Data"
-// require("dotenv").config()
-
-// console.log(process.env)
-
 
 
 function IndexPage() {
