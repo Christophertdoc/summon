@@ -2,12 +2,16 @@ import React from "react"
 import { ApolloProvider } from "@apollo/react-hooks"
 import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost"
 import Data from "../components/Data"
+// require("dotenv").config()
+
+// console.log(process.env)
+
 
 
 function IndexPage() {
 
   const httpLink = new HttpLink({
-    uri: "https://gatsby-summon.herokuapp.com/v1/graphql"
+    uri: process.env.HEROKU_URL
   })
 
   const client = new ApolloClient({
@@ -17,7 +21,7 @@ function IndexPage() {
 
   return (
     <ApolloProvider client={client}>
-        <Data />
+      <Data />
     </ApolloProvider>
   )
 
