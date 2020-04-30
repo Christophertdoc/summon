@@ -13,23 +13,28 @@ export const NOTES = gql`
   }  
 `
 
-function Notes() {
+const Notes = () => {
 
-    const { loading, error, data } = useQuery(NOTES)
+  const { loading, error, data } = useQuery(NOTES)
 
-    if (loading) return "Loading..."
-    if (error) return `Error! ${error.message}`
+  const deleteNote = () => console.log('delete')
 
-    return (
-        <div>
-            {data.notes.map(note => (
-                <div key={note.id}>
-                    <h2>{note.name}</h2>
-                    <p>{note.content}</p>
-                </div>
-            ))}
+  if (loading) return "Loading..."
+  if (error) return `Error! ${error.message}`
+
+  return (
+    <div>
+      {data.notes.map(note => (
+        <div key={note.id}>
+          <h2>{note.name}</h2>
+          <p>{note.content}</p>
+          <button onClick={ () => deleteNote() }>
+            DELETE
+          </button>
         </div>
-    )
+      ))}
+    </div>
+  )
 }
 
 export default withApollo(Notes)
