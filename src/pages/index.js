@@ -1,7 +1,7 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/react-hooks"
 import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost"
-import Data from "../components/Data"
+import Notes from "../components/Notes"
 
 
 function IndexPage() {
@@ -17,7 +17,7 @@ function IndexPage() {
 
   return (
     <ApolloProvider client={client}>
-      <Data />
+      <Notes />
     </ApolloProvider>
   )
 
