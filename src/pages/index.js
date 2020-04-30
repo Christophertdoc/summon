@@ -1,12 +1,13 @@
 import React from "react"
 import { ApolloProvider } from "@apollo/react-hooks"
 import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost"
-import Data from "../components/Data"
+import Notes from "../components/Notes"
+
 
 function IndexPage() {
 
   const httpLink = new HttpLink({
-    uri: "https://gatsby-summon.herokuapp.com/v1/graphql"
+    uri: process.env.HEROKU_URL
   })
 
   const client = new ApolloClient({
@@ -16,9 +17,14 @@ function IndexPage() {
 
   return (
     <ApolloProvider client={client}>
-        <Data />
+      <Notes />
     </ApolloProvider>
   )
+
 }
+
+
+
+
 
 export default IndexPage
