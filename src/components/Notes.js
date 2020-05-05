@@ -40,29 +40,13 @@ const ADD_NOTE = gql`
   }
 `
 
-// const ADD_NOTE = gql`
-//   mutation {
-//     addNote(
-//         objects: [
-//             {
-//               id: "adf",
-//               name: "ansdkfkaf",
-//               content: "ueuiruiruei"
-//             }
-//         ]
-//     ){
-//       affected_rows
-//     }
-//   }
-// `
-
 const Notes = () => {
 
   let input
 
   const { loading, error, data } = useQuery(NOTES)
   const [deleteNote, { loading: deleting, error: deleteError }] = useMutation(REMOVE_NOTE)
-  // const [addNote, { noteData }] = useMutation(ADD_NOTE)
+  const [addNote, { noteData }] = useMutation(ADD_NOTE)
 
   const remove = (id) => {
     console.log('delete')
@@ -85,42 +69,20 @@ const Notes = () => {
           </button>
         </div>
       ))}
-      <Mutation mutation={ADD_NOTE}>
-
-        {/* <form
-          onSubmit={e => {
-            e.preventDefault();
-            addNote({ variables: { id: input.value, name: input.value, content: input.value } });
-            input.value = '';
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          addNote({ variables: { id: input.value, name: input.value, content: input.value } });
+          input.value = '';
+        }}
+      >
+        <input
+          ref={node => {
+            input = node;
           }}
-        >
-          <input
-            ref={node => {
-              input = node;
-            }}
-          />
-          <button type="submit">Add Note</button>
-        </form> */}
-
-        {/* <button onClick={ () => {
-            addNote()  
-          }}>
-              Add note
-          </button> */}
-
-          {(addNote, {loading, data}) => {
-            return (
-              <form onSubmit={(e) => {
-                e.preventDefault()
-                console.log('submit')
-                addNote({ variables: {id: '5', name: 'hotel', content: 'Then will sun'} })
-              }}>
-                <button type="submit">submit</button>
-              </form>
-            )
-          }}
-
-      </Mutation>
+        />
+        <button type="submit">Add Note</button>
+      </form>
     </div>
   )
 }
