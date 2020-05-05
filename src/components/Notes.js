@@ -2,7 +2,6 @@ import React from "react"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 import { gql } from "apollo-boost"
 import { withApollo } from "@apollo/react-hoc"
-import { Mutation } from "react-apollo"
 
 export const NOTES = gql`
   {  
@@ -52,7 +51,7 @@ const Notes = () => {
     console.log('delete')
     deleteNote({
       variables: { id: id }
-    });
+    })
   }
 
   if (loading) return "Loading..."
@@ -64,24 +63,18 @@ const Notes = () => {
         <div key={note.id}>
           <h2>{note.name}</h2>
           <p>{note.content}</p>
-          <button onClick={ () => remove(note.id) }>
-            DELETE
-          </button>
+          <button onClick={ () => remove(note.id) }>DELETE</button>
         </div>
       ))}
       <form
         onSubmit={e => {
-          e.preventDefault();
-          addNote({ variables: { id: input.value, name: input.value, content: input.value } });
-          input.value = '';
+          e.preventDefault()
+          addNote({ variables: { id: input.value, name: input.value, content: input.value } })
+          input.value = ''
         }}
       >
-        <input
-          ref={node => {
-            input = node;
-          }}
-        />
-        <button type="submit">Add Note</button>
+        <input ref={node => { input = node }} />
+        <button type="submit">ADD NOTE</button>
       </form>
     </div>
   )
