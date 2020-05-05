@@ -2,6 +2,7 @@ import React from "react"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 import { gql } from "apollo-boost"
 import { withApollo } from "@apollo/react-hoc"
+import { Mutation } from "react-apollo"
 
 export const NOTES = gql`
   {  
@@ -12,7 +13,6 @@ export const NOTES = gql`
     }
   }  
 `
-
 const REMOVE_NOTE = gql`
   mutation ($id: String) {
     delete_notes (
@@ -27,10 +27,26 @@ const REMOVE_NOTE = gql`
   }
 `
 
+const ADD_NOTE = gql`
+  mutation AddNote($id: String!, $name: String!, $content: String!) {
+    insert_notes(objects: [{id: $id, name: $name, content: $content}]) {
+      affected_rows
+      returning {
+        id
+        name
+        content
+      }
+    }
+  }
+`
+
 const Notes = () => {
+
+  let input
 
   const { loading, error, data } = useQuery(NOTES)
   const [deleteNote, { loading: deleting, error: deleteError }] = useMutation(REMOVE_NOTE)
+  const [addNote, { noteData }] = useMutation(ADD_NOTE)
 
   const remove = (id) => {
     console.log('delete')
@@ -53,6 +69,20 @@ const Notes = () => {
           </button>
         </div>
       ))}
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          addNote({ variables: { id: input.value, name: input.value, content: input.value } });
+          input.value = '';
+        }}
+      >
+        <input
+          ref={node => {
+            input = node;
+          }}
+        />
+        <button type="submit">Add Note</button>
+      </form>
     </div>
   )
 }
